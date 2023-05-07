@@ -1,24 +1,34 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { ListTemplate } from './classes/ListTemplate.js'
+import {Invoice} from './classes/invoice.js'
+import {Payment} from './classes/payment.js'
+import {HasFormatter} from './interfaces/formatter.js'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+let docOne : HasFormatter
+let docTwo : HasFormatter
+
+docOne = new Invoice('ola', 'sleeping', 120)
+docTwo = new Payment('tobi', 'writting', 120)
+const form = document.querySelector('.new-item-form') as HTMLFormElement
+
+const type = document.querySelector('#type') as HTMLSelectElement
+const tofrom = document.querySelector('#tofrom') as HTMLInputElement
+const details = document.querySelector('#details') as HTMLInputElement
+const amount = document.querySelector('#amount') as HTMLInputElement
+
+//list template instance
+
+const ul = document.querySelector('ul')!
+const list = new ListTemplate(ul)
+
+form.addEventListener('submit', (e:Event) => {
+    e.preventDefault()
+    let doc: HasFormatter
+    if(type.value === "invoice"){
+        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber)
+    }else {
+        doc = new Payment(tofrom.value, details.value, amount.valueAsNumber)
+    }
+  list.render(doc, type.value, "end")
+       
+})
