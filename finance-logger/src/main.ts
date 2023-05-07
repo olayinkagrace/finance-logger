@@ -4,11 +4,6 @@ import {Payment} from './classes/payment.js'
 import {HasFormatter} from './interfaces/formatter.js'
 
 
-let docOne : HasFormatter
-let docTwo : HasFormatter
-
-docOne = new Invoice('ola', 'sleeping', 120)
-docTwo = new Payment('tobi', 'writting', 120)
 const form = document.querySelector('.new-item-form') as HTMLFormElement
 
 const type = document.querySelector('#type') as HTMLSelectElement
