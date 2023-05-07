@@ -62,6 +62,7 @@ button{
   padding: 6px;
   min-width: 80px;
   border-radius: 4px;
+  margin-top: 5px;
 }
 .copywrite{
   text-align: center;
